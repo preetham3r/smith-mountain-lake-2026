@@ -204,6 +204,71 @@
     line-height: 1.3;
   }
 
+  /* WEATHER BLOCK */
+  .weather {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    background: linear-gradient(135deg, rgba(44,122,123,0.06), rgba(44,122,123,0.02));
+    border-left: 3px solid var(--teal);
+    border-radius: 0 10px 10px 0;
+    padding: 0.85rem 1rem;
+    margin: 0 0 1.25rem 0;
+  }
+  .weather.wx-wet {
+    background: linear-gradient(135deg, rgba(217,119,87,0.08), rgba(217,119,87,0.02));
+    border-left-color: var(--sunset);
+  }
+  .weather.wx-tbd {
+    background: linear-gradient(135deg, rgba(140,132,120,0.06), rgba(140,132,120,0.02));
+    border-left-color: var(--stone);
+  }
+  .wx-temps {
+    flex-shrink: 0;
+    text-align: center;
+    min-width: 4rem;
+  }
+  .wx-hi {
+    font-family: var(--display);
+    font-size: 1.5rem;
+    font-weight: 500;
+    color: var(--ink);
+    line-height: 1;
+  }
+  .wx-lo {
+    font-family: var(--display);
+    font-size: 0.9rem;
+    color: var(--stone);
+    display: block;
+    margin-top: 0.15rem;
+  }
+  .wx-body { flex: 1; }
+  .wx-cond {
+    font-size: 0.85rem;
+    color: var(--ink);
+    font-weight: 600;
+    line-height: 1.3;
+  }
+  .wx-rain {
+    font-size: 0.75rem;
+    color: var(--ink-soft);
+    margin-top: 0.2rem;
+  }
+  .wx-note {
+    font-size: 0.78rem;
+    color: var(--ink-soft);
+    font-style: italic;
+    margin-top: 0.35rem;
+    line-height: 1.4;
+  }
+  .wx-source {
+    font-size: 0.7rem;
+    color: var(--stone);
+    text-align: center;
+    margin: 0.5rem 0 1.5rem;
+    font-style: italic;
+  }
+
   .block { margin-top: 1.25rem; }
   .block:first-of-type { margin-top: 0; }
   .block-label {
@@ -537,7 +602,7 @@
 <section class="section active" id="plan">
 
   <div class="callout">
-    <strong>Sunday morning hike.</strong> Chestnut Ridge Trail at Smith Mountain Lake State Park. 1.7 mi loop, easy, forest shaded the whole way. 5 min drive from the rental. Bring water and one sturdy stroller for the youngest.
+    <strong>Weather watch.</strong> Forecast as of May 17 shows showers and possible thunderstorms both Sat and Sun, storms building after 2 PM. Sunday hike pulled to 8:30 AM. Page refreshes Wednesday with firm numbers.
   </div>
 
   <article class="day">
@@ -547,6 +612,18 @@
         <div class="day-title">Down to the water</div>
       </div>
       <div class="day-meta">Sat May 23<br>Travel day</div>
+    </div>
+
+    <div class="weather wx-wet">
+      <div class="wx-temps">
+        <div class="wx-hi">76°</div>
+        <span class="wx-lo">61°</span>
+      </div>
+      <div class="wx-body">
+        <div class="wx-cond">Showers, possible thunderstorms</div>
+        <div class="wx-rain">60% rain · Mostly cloudy</div>
+        <div class="wx-note">Storms typically build after 2 PM. Natural Bridge hike fine in the morning. Rain shells in the car.</div>
+      </div>
     </div>
 
     <div class="block">
@@ -623,22 +700,34 @@
       <div class="day-meta">Sun May 24<br>Hike day</div>
     </div>
 
+    <div class="weather wx-wet">
+      <div class="wx-temps">
+        <div class="wx-hi">81°</div>
+        <span class="wx-lo">60°</span>
+      </div>
+      <div class="wx-body">
+        <div class="wx-cond">Showers, possible thunderstorms</div>
+        <div class="wx-rain">70% rain · Storms after 2 PM</div>
+        <div class="wx-note">Start the hike at 8:30. Done by 10:30 and back at the house before any storms.</div>
+      </div>
+    </div>
+
     <div class="block">
       <div class="block-label">Morning</div>
       <div class="slot">
-        <div class="slot-time">8:30 AM</div>
+        <div class="slot-time">7:30 AM</div>
         <div class="slot-content">Breakfast at the house. Idli, dosa, eggs, fruit. Pack water bottles for the hike.</div>
       </div>
       <div class="slot">
-        <div class="slot-time">9:30 AM</div>
+        <div class="slot-time">8:15 AM</div>
         <div class="slot-content">Drive to <strong>Smith Mountain Lake State Park</strong> (5 min). Park at the visitor center, grab the trail map.</div>
       </div>
       <div class="slot">
-        <div class="slot-time">10:00 AM</div>
+        <div class="slot-time">8:30 AM</div>
         <div class="slot-content"><strong>Chestnut Ridge Trail.</strong> 1.7 mi loop, easy, forest shaded the whole way, lake glimpses. Strong walkers can add Turtle Island (1.4 mi) on the way back for a 3 mi total.</div>
       </div>
       <div class="slot">
-        <div class="slot-time">11:30 AM</div>
+        <div class="slot-time">10:30 AM</div>
         <div class="slot-content">Back at the rental. Cold drinks, shower off.</div>
       </div>
     </div>
@@ -683,6 +772,18 @@
         <div class="day-title">One last morning</div>
       </div>
       <div class="day-meta">Mon May 25<br>Drive home</div>
+    </div>
+
+    <div class="weather wx-tbd">
+      <div class="wx-temps">
+        <div class="wx-hi">~75°</div>
+        <span class="wx-lo">--</span>
+      </div>
+      <div class="wx-body">
+        <div class="wx-cond">Forecast updates Wednesday</div>
+        <div class="wx-rain">Outside the 7 day window today</div>
+        <div class="wx-note">Will refresh this card with firm numbers Wed. Plan assumes drivable conditions.</div>
+      </div>
     </div>
 
     <div class="block">
@@ -913,11 +1014,12 @@
     <h2>Stress test passed</h2>
     <ul>
       <li><strong>Memorial Day traffic.</strong> Mitigated. 8 AM Saturday departure, 10:30 AM Monday return both miss the peaks.</li>
-      <li><strong>Heat.</strong> Mid 80s likely. Chestnut Ridge is forest shaded the whole way. Water, hats, sunscreen still built into the day.</li>
+      <li><strong>Weather.</strong> Forecast (as of May 17) shows showers and t-storms both Sat and Sun. Sunday hike pulled to 8:30 AM to beat afternoon storms. Rain backup is D-Day Memorial in Bedford or board games at the house.</li>
+      <li><strong>Heat.</strong> Mid 70s to low 80s. Chestnut Ridge is forest shaded the whole way. Water, hats, sunscreen still built into the day.</li>
       <li><strong>No external bookings.</strong> Hike is free, no marina, no failure point.</li>
-      <li><strong>Weather.</strong> Rain backup is D-Day Memorial in Bedford or board games.</li>
       <li><strong>Dietary.</strong> 16 people, mixed eaters. Kitchen first strategy. Group cooking each evening.</li>
       <li><strong>Caravan drift.</strong> Three regroup points, live location, lead car protocol.</li>
+      <li><strong>Forecast refresh.</strong> Wednesday May 20, the page updates with firm Sun and Mon numbers.</li>
     </ul>
   </div>
 
