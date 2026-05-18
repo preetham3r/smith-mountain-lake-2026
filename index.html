@@ -1,0 +1,969 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<meta name="theme-color" content="#1A2E40" />
+<meta name="description" content="Smith Mountain Lake trip, Sat May 23 to Mon May 25, 2026. Five families. Lagom at the Lake." />
+<title>SML 2026 · The Lake Weekend</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600;9..144,700&family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --bg: #F5EFE6;
+    --bg-soft: #EDE5D8;
+    --ink: #1A2E40;
+    --ink-soft: #3D4F61;
+    --stone: #8C8478;
+    --teal: #2C7A7B;
+    --sunset: #D97757;
+    --line: #D9D0BF;
+    --card: #FCF8F1;
+    --shadow: 0 1px 2px rgba(26,46,64,0.04), 0 8px 24px rgba(26,46,64,0.08);
+    --display: 'Fraunces', Georgia, serif;
+    --body: 'Manrope', system-ui, sans-serif;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html, body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--body);
+    font-size: 16px;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  body {
+    background:
+      radial-gradient(circle at 15% 10%, rgba(44,122,123,0.06), transparent 40%),
+      radial-gradient(circle at 85% 90%, rgba(217,119,87,0.05), transparent 50%),
+      var(--bg);
+    min-height: 100vh;
+    padding-bottom: 6rem;
+  }
+
+  /* HEADER */
+  .hero {
+    padding: 2rem 1.25rem 1.25rem;
+    text-align: left;
+    max-width: 720px;
+    margin: 0 auto;
+  }
+  .eyebrow {
+    font-size: 0.72rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--teal);
+    font-weight: 600;
+    margin-bottom: 0.75rem;
+  }
+  .hero h1 {
+    font-family: var(--display);
+    font-weight: 500;
+    font-size: clamp(2.4rem, 7vw, 3.4rem);
+    line-height: 1.02;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+    margin-bottom: 0.5rem;
+  }
+  .hero h1 em {
+    font-style: italic;
+    font-weight: 400;
+    color: var(--sunset);
+  }
+  .hero .sub {
+    font-size: 0.95rem;
+    color: var(--ink-soft);
+    margin-bottom: 1.5rem;
+    max-width: 32rem;
+  }
+
+  /* COUNTDOWN */
+  .countdown {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+  }
+  .cd-box {
+    flex: 1;
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 0.75rem 0.5rem;
+    text-align: center;
+  }
+  .cd-num {
+    font-family: var(--display);
+    font-size: 1.6rem;
+    font-weight: 500;
+    color: var(--ink);
+    line-height: 1;
+  }
+  .cd-label {
+    font-size: 0.65rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--stone);
+    margin-top: 0.25rem;
+  }
+
+  /* TABS */
+  .tabs {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background: rgba(245,239,230,0.92);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--line);
+    padding: 0.5rem 1.25rem;
+  }
+  .tab-row {
+    display: flex;
+    gap: 0.25rem;
+    max-width: 720px;
+    margin: 0 auto;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .tab-row::-webkit-scrollbar { display: none; }
+  .tab {
+    background: none;
+    border: none;
+    padding: 0.75rem 1rem;
+    font-family: var(--body);
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--stone);
+    cursor: pointer;
+    border-radius: 8px;
+    white-space: nowrap;
+    transition: all 0.18s;
+  }
+  .tab.active {
+    background: var(--ink);
+    color: var(--bg);
+  }
+
+  /* SECTIONS */
+  main {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 1.5rem 1.25rem;
+  }
+  .section { display: none; }
+  .section.active { display: block; animation: fade 0.3s ease; }
+  @keyframes fade {
+    from { opacity: 0; transform: translateY(6px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* DAY CARDS */
+  .day {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    padding: 1.5rem 1.25rem;
+    margin-bottom: 1rem;
+    box-shadow: var(--shadow);
+  }
+  .day-header {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid var(--line);
+  }
+  .day-num {
+    font-family: var(--display);
+    font-size: 0.7rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--teal);
+    font-weight: 600;
+  }
+  .day-title {
+    font-family: var(--display);
+    font-size: 1.5rem;
+    font-weight: 500;
+    line-height: 1.15;
+    letter-spacing: -0.01em;
+    margin-top: 0.4rem;
+  }
+  .day-meta {
+    font-size: 0.78rem;
+    color: var(--stone);
+    text-align: right;
+    line-height: 1.3;
+  }
+
+  .block { margin-top: 1.25rem; }
+  .block:first-of-type { margin-top: 0; }
+  .block-label {
+    font-size: 0.7rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--sunset);
+    font-weight: 600;
+    margin-bottom: 0.6rem;
+  }
+  .slot {
+    display: flex;
+    gap: 0.85rem;
+    padding: 0.6rem 0;
+    border-bottom: 1px dashed rgba(217,208,191,0.5);
+  }
+  .slot:last-child { border-bottom: none; }
+  .slot-time {
+    font-family: var(--display);
+    font-weight: 500;
+    color: var(--ink);
+    font-size: 0.9rem;
+    flex-shrink: 0;
+    width: 4.5rem;
+    line-height: 1.4;
+    padding-top: 0.05rem;
+  }
+  .slot-content {
+    flex: 1;
+    font-size: 0.92rem;
+    color: var(--ink-soft);
+    line-height: 1.5;
+  }
+  .slot-content strong {
+    color: var(--ink);
+    font-weight: 600;
+  }
+  .slot-content a {
+    color: var(--teal);
+    text-decoration: none;
+    border-bottom: 1px solid rgba(44,122,123,0.3);
+  }
+
+  /* CALLOUTS */
+  .callout {
+    background: rgba(217,119,87,0.08);
+    border-left: 3px solid var(--sunset);
+    padding: 0.85rem 1rem;
+    border-radius: 0 8px 8px 0;
+    margin: 1.25rem 0;
+    font-size: 0.85rem;
+    color: var(--ink);
+  }
+  .callout strong { color: var(--sunset); }
+
+  .callout-info {
+    background: rgba(44,122,123,0.08);
+    border-left-color: var(--teal);
+  }
+  .callout-info strong { color: var(--teal); }
+
+  /* ROUTE */
+  .route-summary {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    padding: 1.5rem 1.25rem;
+    margin-bottom: 1.25rem;
+    box-shadow: var(--shadow);
+  }
+  .route-stat {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.6rem 0;
+    border-bottom: 1px solid var(--line);
+    font-size: 0.92rem;
+  }
+  .route-stat:last-child { border-bottom: none; font-weight: 600; color: var(--ink); }
+  .route-stat-label { color: var(--ink-soft); }
+  .route-stat-value { color: var(--ink); font-family: var(--display); font-weight: 500; }
+
+  .stop-card {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    padding: 1.25rem;
+    margin-bottom: 1rem;
+    box-shadow: var(--shadow);
+    position: relative;
+  }
+  .stop-num {
+    position: absolute;
+    top: 1.25rem;
+    right: 1.25rem;
+    font-family: var(--display);
+    font-size: 0.7rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--teal);
+    font-weight: 600;
+  }
+  .stop-name {
+    font-family: var(--display);
+    font-size: 1.3rem;
+    font-weight: 500;
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+    margin-bottom: 0.25rem;
+    padding-right: 4rem;
+  }
+  .stop-addr {
+    font-size: 0.85rem;
+    color: var(--ink-soft);
+    margin-bottom: 0.85rem;
+  }
+  .stop-detail {
+    font-size: 0.88rem;
+    color: var(--ink-soft);
+    margin-bottom: 0.85rem;
+  }
+  .stop-actions {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+  }
+  .stop-btn {
+    padding: 0.5rem 0.85rem;
+    border-radius: 8px;
+    border: 1px solid var(--line);
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--body);
+    font-size: 0.78rem;
+    font-weight: 500;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .stop-btn:hover { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+  .stop-btn.primary {
+    background: var(--ink);
+    color: var(--bg);
+    border-color: var(--ink);
+  }
+  .stop-btn.primary:hover { background: var(--teal); border-color: var(--teal); }
+
+  /* PRACTICAL */
+  .panel {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    padding: 1.5rem 1.25rem;
+    margin-bottom: 1rem;
+    box-shadow: var(--shadow);
+  }
+  .panel h2 {
+    font-family: var(--display);
+    font-size: 1.3rem;
+    font-weight: 500;
+    letter-spacing: -0.01em;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--line);
+  }
+  .panel h3 {
+    font-family: var(--display);
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--teal);
+    margin-top: 1.25rem;
+    margin-bottom: 0.5rem;
+  }
+  .panel h3:first-of-type { margin-top: 0; }
+  .panel ul {
+    list-style: none;
+    padding: 0;
+  }
+  .panel li {
+    padding: 0.5rem 0;
+    border-bottom: 1px dashed rgba(217,208,191,0.5);
+    font-size: 0.9rem;
+    color: var(--ink-soft);
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+  }
+  .panel li:last-child { border-bottom: none; }
+  .panel li::before {
+    content: '';
+    flex-shrink: 0;
+    width: 16px;
+    height: 16px;
+    border: 1.5px solid var(--stone);
+    border-radius: 4px;
+    margin-top: 0.18rem;
+  }
+  .panel li.done::before {
+    background: var(--teal);
+    border-color: var(--teal);
+  }
+  .panel li strong { color: var(--ink); font-weight: 600; }
+
+  .key-fact {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.65rem 0;
+    border-bottom: 1px solid var(--line);
+    font-size: 0.9rem;
+  }
+  .key-fact:last-child { border-bottom: none; }
+  .key-fact-label { color: var(--stone); font-size: 0.82rem; }
+  .key-fact-value {
+    color: var(--ink);
+    font-weight: 500;
+    text-align: right;
+  }
+  .key-fact-value a {
+    color: var(--teal);
+    text-decoration: none;
+    border-bottom: 1px solid rgba(44,122,123,0.3);
+  }
+
+  /* FOOTER */
+  footer {
+    text-align: center;
+    padding: 2rem 1.25rem 1rem;
+    font-size: 0.75rem;
+    color: var(--stone);
+    font-family: var(--display);
+    font-style: italic;
+  }
+
+  /* PROPERTY HERO */
+  .property-card {
+    background: linear-gradient(135deg, var(--ink) 0%, #2D4358 100%);
+    color: var(--bg);
+    border-radius: 16px;
+    padding: 1.5rem 1.25rem;
+    margin-bottom: 1.5rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .property-card::after {
+    content: '';
+    position: absolute;
+    bottom: -40px;
+    right: -40px;
+    width: 160px;
+    height: 160px;
+    background: radial-gradient(circle, rgba(217,119,87,0.25), transparent 70%);
+    border-radius: 50%;
+  }
+  .property-card .eyebrow { color: var(--sunset); position: relative; z-index: 1; }
+  .property-card h2 {
+    font-family: var(--display);
+    font-size: 1.5rem;
+    font-weight: 500;
+    margin-bottom: 0.25rem;
+    line-height: 1.2;
+    position: relative;
+    z-index: 1;
+  }
+  .property-card .meta {
+    font-size: 0.82rem;
+    color: rgba(245,239,230,0.7);
+    margin-bottom: 1rem;
+    position: relative;
+    z-index: 1;
+  }
+  .property-card .pills {
+    display: flex;
+    gap: 0.4rem;
+    flex-wrap: wrap;
+    position: relative;
+    z-index: 1;
+  }
+  .pill {
+    background: rgba(245,239,230,0.12);
+    border: 1px solid rgba(245,239,230,0.2);
+    color: var(--bg);
+    padding: 0.3rem 0.7rem;
+    border-radius: 20px;
+    font-size: 0.72rem;
+    font-weight: 500;
+  }
+
+  @media (min-width: 640px) {
+    .hero { padding: 3rem 1.5rem 1.5rem; }
+    main { padding: 2rem 1.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="eyebrow">Memorial Day Weekend · Smith Mountain Lake</div>
+  <h1>The <em>Lake</em> Weekend</h1>
+  <p class="sub">Five families, three days, one cove. Lagom at the Lake, Huddleston VA. Saturday May 23 to Monday May 25, 2026.</p>
+
+  <div class="countdown" id="countdown">
+    <div class="cd-box"><div class="cd-num" id="cd-days">--</div><div class="cd-label">Days</div></div>
+    <div class="cd-box"><div class="cd-num" id="cd-hours">--</div><div class="cd-label">Hours</div></div>
+    <div class="cd-box"><div class="cd-num" id="cd-mins">--</div><div class="cd-label">Mins</div></div>
+  </div>
+
+  <div class="property-card">
+    <div class="eyebrow">Home Base</div>
+    <h2>Lagom at the Lake</h2>
+    <div class="meta">Huddleston VA · Quiet cove · 9.8 ★ guest rating</div>
+    <div class="pills">
+      <span class="pill">Lakefront</span>
+      <span class="pill">Private dock</span>
+      <span class="pill">BBQ grill</span>
+      <span class="pill">Full kitchen</span>
+      <span class="pill">Sleeps 16</span>
+    </div>
+  </div>
+</header>
+
+<nav class="tabs">
+  <div class="tab-row">
+    <button class="tab active" data-target="plan">The Plan</button>
+    <button class="tab" data-target="route">Route &amp; Stops</button>
+    <button class="tab" data-target="practical">Practical</button>
+  </div>
+</nav>
+
+<main>
+
+<!-- PLAN -->
+<section class="section active" id="plan">
+
+  <div class="callout">
+    <strong>This Saturday night.</strong> Book the pontoon at Lake Haven Marina (540 721 5800). Single failure point for the whole weekend. Backup: Bridgewater Marina, Parkway Marina.
+  </div>
+
+  <article class="day">
+    <div class="day-header">
+      <div>
+        <div class="day-num">Day One</div>
+        <div class="day-title">Down to the water</div>
+      </div>
+      <div class="day-meta">Sat May 23<br>Travel day</div>
+    </div>
+
+    <div class="block">
+      <div class="block-label">Morning</div>
+      <div class="slot">
+        <div class="slot-time">7:30 AM</div>
+        <div class="slot-content"><strong>Meet point Brambleton.</strong> Caravan order locked. WhatsApp group live with location share. Tanks full.</div>
+      </div>
+      <div class="slot">
+        <div class="slot-time">8:00 AM</div>
+        <div class="slot-content">Depart. I-66 W to I-81 S.</div>
+      </div>
+      <div class="slot">
+        <div class="slot-time">10:00 AM</div>
+        <div class="slot-content"><strong>Buc-ee's Mt Crawford</strong> (Exit 240, 4344 Early Rd). Bathrooms, brisket for the meat eaters, beaver nuggets and fudge for the kids. 45 min.</div>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block-label">Afternoon</div>
+      <div class="slot">
+        <div class="slot-time">10:45 AM</div>
+        <div class="slot-content">Roll out. I-81 S to Exit 175.</div>
+      </div>
+      <div class="slot">
+        <div class="slot-time">11:50 AM</div>
+        <div class="slot-content"><strong>Natural Bridge State Park</strong> (6477 S Lee Hwy). Walk the bridge, Cedar Creek trail to the saltpeter cave and waterfall. 1 hr 30 min.</div>
+      </div>
+      <div class="slot">
+        <div class="slot-time">1:20 PM</div>
+        <div class="slot-content">Lunch at <strong>Pink Cadillac Diner</strong>, 5 min from the park. 1950s kitsch, veg grilled cheese and salads. Picnic at the park is the alternative.</div>
+      </div>
+      <div class="slot">
+        <div class="slot-time">2:30 PM</div>
+        <div class="slot-content">Depart for the lake. I-81 S, US 460 E, VA 122 S.</div>
+      </div>
+      <div class="slot">
+        <div class="slot-time">3:30 PM</div>
+        <div class="slot-content"><strong>Kroger Westlake</strong> (16345 Moneta Rd). Group grocery run. Build the shared list on the drive down. 45 min.</div>
+      </div>
+      <div class="slot">
+        <div class="slot-time">4:15 PM</div>
+        <div class="slot-content"><strong>Check in at Lagom at the Lake.</strong> Unload. Bedrooms assigned. Kids on the dock within five minutes.</div>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block-label">Evening</div>
+      <div class="slot">
+        <div class="slot-time">5:30 PM</div>
+        <div class="slot-content">Lake time. Dock, swim, photos. Sunset around 8:25 PM.</div>
+      </div>
+      <div class="slot">
+        <div class="slot-time">7:00 PM</div>
+        <div class="slot-content"><strong>Group cookout.</strong> Property has a grill. Veg burgers, paneer skewers, corn, salad.</div>
+      </div>
+      <div class="slot">
+        <div class="slot-time">9:00 PM</div>
+        <div class="slot-content">Kids on a movie. Adults on the deck. Stars.</div>
+      </div>
+    </div>
+
+    <div class="callout callout-info">
+      <strong>Saturday night to do.</strong> Call Lake Haven Marina for tomorrow's pontoon. Confirm Monday checkout time with the host.
+    </div>
+  </article>
+
+  <article class="day">
+    <div class="day-header">
+      <div>
+        <div class="day-num">Day Two</div>
+        <div class="day-title">On the water</div>
+      </div>
+      <div class="day-meta">Sun May 24<br>Lake day</div>
+    </div>
+
+    <div class="block">
+      <div class="block-label">Morning</div>
+      <div class="slot">
+        <div class="slot-time">8:00 AM</div>
+        <div class="slot-content">Carb heavy breakfast at the house. Idli, dosa, eggs, fruit. Hydrate.</div>
+      </div>
+      <div class="slot">
+        <div class="slot-time">9:30 AM</div>
+        <div class="slot-content"><strong>Pontoon pickup at Lake Haven Marina</strong>, 2 min drive. Two boats, 4 hr block. Life jackets sized for every kid.</div>
+      </div>
+      <div class="slot">
+        <div class="slot-time">10:00 AM</div>
+        <div class="slot-content">On the water. Cruise the cove, swim stops, tubing for the older kids.</div>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block-label">Afternoon</div>
+      <div class="slot">
+        <div class="slot-time">2:00 PM</div>
+        <div class="slot-content">Return to dock. Lunch at the house, leftovers and sandwiches.</div>
+      </div>
+      <div class="slot">
+        <div class="slot-time">3:30 PM</div>
+        <div class="slot-content">Quiet hours. Lake, hammock, dock.</div>
+      </div>
+      <div class="slot">
+        <div class="slot-time">5:00 PM</div>
+        <div class="slot-content">Optional walk into <strong>Smith Mountain Lake State Park</strong>, 20 min on foot from the rental.</div>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block-label">Evening</div>
+      <div class="slot">
+        <div class="slot-time">7:00 PM</div>
+        <div class="slot-content"><strong>Group Indian dinner.</strong> Split cooking across families. Biryani, two curries, fresh roti, raita.</div>
+      </div>
+      <div class="slot">
+        <div class="slot-time">8:30 PM</div>
+        <div class="slot-content">Bonfire and s'mores if a fire pit is on site. Cards otherwise.</div>
+      </div>
+    </div>
+
+    <div class="callout">
+      <strong>Rain plan.</strong> If Sunday weather breaks, swap to D-Day Memorial in Bedford (35 min, mostly sheltered) or a slow board game day at the house.
+    </div>
+  </article>
+
+  <article class="day">
+    <div class="day-header">
+      <div>
+        <div class="day-num">Day Three</div>
+        <div class="day-title">One last morning</div>
+      </div>
+      <div class="day-meta">Mon May 25<br>Drive home</div>
+    </div>
+
+    <div class="block">
+      <div class="block-label">Morning</div>
+      <div class="slot">
+        <div class="slot-time">7:30 AM</div>
+        <div class="slot-content">Breakfast. Start packing.</div>
+      </div>
+      <div class="slot">
+        <div class="slot-time">9:00 AM</div>
+        <div class="slot-content">One last hour on the dock. Group photo.</div>
+      </div>
+      <div class="slot">
+        <div class="slot-time">10:00 AM</div>
+        <div class="slot-content"><strong>Check out.</strong> Trash out, dishes done, fridge cleared. Walk every room before locking up.</div>
+      </div>
+      <div class="slot">
+        <div class="slot-time">10:30 AM</div>
+        <div class="slot-content">Depart. VA 122 N, US 460 W, I-81 N, I-66 E.</div>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block-label">Afternoon</div>
+      <div class="slot">
+        <div class="slot-time">1:00 PM</div>
+        <div class="slot-content">Lunch in <strong>Staunton</strong>. Bistro on Beverley or Mill Street Grill, both have veg.</div>
+      </div>
+      <div class="slot">
+        <div class="slot-time">4:30 PM</div>
+        <div class="slot-content">Home in Brambleton.</div>
+      </div>
+    </div>
+
+    <div class="callout callout-info">
+      <strong>Traffic note.</strong> I-81 N surges 1 to 4 PM Monday. Leaving the lake at 10:30 AM puts you ahead of it. Lunch only after Lexington.
+    </div>
+  </article>
+
+</section>
+
+<!-- ROUTE -->
+<section class="section" id="route">
+
+  <div class="route-summary">
+    <div class="route-stat"><span class="route-stat-label">Distance one way</span><span class="route-stat-value">~270 mi</span></div>
+    <div class="route-stat"><span class="route-stat-label">Driving time</span><span class="route-stat-value">~4 hr 50 min</span></div>
+    <div class="route-stat"><span class="route-stat-label">With stops</span><span class="route-stat-value">~7 hr door to door</span></div>
+    <div class="route-stat"><span class="route-stat-label">Depart Saturday</span><span class="route-stat-value">8:00 AM</span></div>
+    <div class="route-stat"><span class="route-stat-label">Arrive property</span><span class="route-stat-value">~3:00 PM</span></div>
+  </div>
+
+  <article class="stop-card">
+    <div class="stop-num">Stop 1</div>
+    <div class="stop-name">Buc-ee's Mt Crawford</div>
+    <div class="stop-addr">4344 Early Rd, Mt Crawford VA · I-81 Exit 240</div>
+    <div class="stop-detail">2 hours from Brambleton. Bathroom break, brisket sandwiches, beaver nuggets, the wall of jerky, fudge counter. Plan 45 min, the kids will want longer.</div>
+    <div class="stop-actions">
+      <a class="stop-btn primary" href="https://maps.google.com/?q=Buc-ee%27s+Mt+Crawford+VA" target="_blank" rel="noopener">Open in Maps</a>
+      <a class="stop-btn" href="tel:+15403200300">Call</a>
+    </div>
+  </article>
+
+  <article class="stop-card">
+    <div class="stop-num">Stop 2</div>
+    <div class="stop-name">Natural Bridge State Park</div>
+    <div class="stop-addr">6477 S Lee Hwy, Natural Bridge VA · I-81 Exit 175</div>
+    <div class="stop-detail">1 hour 5 min from Buc-ee's. Walk the iconic bridge, then the Cedar Creek trail to the saltpeter cave and Lace Falls. Entry fee at the visitor center. Plan 1 hr 30 min.</div>
+    <div class="stop-actions">
+      <a class="stop-btn primary" href="https://maps.google.com/?q=Natural+Bridge+State+Park+Virginia" target="_blank" rel="noopener">Open in Maps</a>
+      <a class="stop-btn" href="https://www.dcr.virginia.gov/state-parks/natural-bridge" target="_blank" rel="noopener">Park info</a>
+    </div>
+  </article>
+
+  <article class="stop-card">
+    <div class="stop-num">Lunch</div>
+    <div class="stop-name">Pink Cadillac Diner</div>
+    <div class="stop-addr">4347 S Lee Hwy, Natural Bridge VA</div>
+    <div class="stop-detail">5 min drive from the park. 1950s kitsch, milkshakes, grilled cheese and salads for the veg eaters. Or skip and picnic at the park.</div>
+    <div class="stop-actions">
+      <a class="stop-btn primary" href="https://maps.google.com/?q=Pink+Cadillac+Diner+Natural+Bridge+VA" target="_blank" rel="noopener">Open in Maps</a>
+    </div>
+  </article>
+
+  <article class="stop-card">
+    <div class="stop-num">Stop 3</div>
+    <div class="stop-name">Kroger Westlake</div>
+    <div class="stop-addr">16345 Moneta Rd, Moneta VA</div>
+    <div class="stop-detail">Group grocery run before checkin. Build the shared list during the drive south. 45 min, in and out.</div>
+    <div class="stop-actions">
+      <a class="stop-btn primary" href="https://maps.google.com/?q=Kroger+Westlake+Moneta+VA" target="_blank" rel="noopener">Open in Maps</a>
+    </div>
+  </article>
+
+  <article class="stop-card">
+    <div class="stop-num">Home Base</div>
+    <div class="stop-name">Lagom at the Lake</div>
+    <div class="stop-addr">Huddleston VA · Smith Mountain Lake</div>
+    <div class="stop-detail">Checkin 4:00 PM. Confirm exact address with VRBO host before departure. Quiet cove, dock, BBQ, full kitchen, AC, washer.</div>
+    <div class="stop-actions">
+      <a class="stop-btn primary" href="https://www.vrbo.com/3472842" target="_blank" rel="noopener">VRBO listing</a>
+    </div>
+  </article>
+
+  <article class="stop-card" style="background: linear-gradient(135deg, rgba(44,122,123,0.08), rgba(44,122,123,0.02));">
+    <div class="stop-num">Sunday</div>
+    <div class="stop-name">Lake Haven Marina</div>
+    <div class="stop-addr">Smith Mountain Lake · 2 min drive from the property</div>
+    <div class="stop-detail"><strong>Pontoon rental, the headline activity.</strong> Two boats, 4 hour block. ~$350 per boat plus fuel. Book Saturday night, the moment you arrive.</div>
+    <div class="stop-actions">
+      <a class="stop-btn primary" href="tel:+15407215800">Call 540 721 5800</a>
+      <a class="stop-btn" href="https://maps.google.com/?q=Lake+Haven+Marina+Smith+Mountain+Lake" target="_blank" rel="noopener">Maps</a>
+    </div>
+  </article>
+
+</section>
+
+<!-- PRACTICAL -->
+<section class="section" id="practical">
+
+  <div class="panel">
+    <h2>Pre trip checklist</h2>
+
+    <h3>Tonight (Sunday, 6 days out)</h3>
+    <ul>
+      <li><strong>Book pontoon</strong> at Lake Haven Marina, 540 721 5800. Backup: Bridgewater Marina, Parkway Marina.</li>
+      <li>Share this page link in the family WhatsApp.</li>
+    </ul>
+
+    <h3>Wednesday</h3>
+    <ul>
+      <li>Message VRBO host: confirm check in time, parking for 5 cars, fire pit, BBQ propane.</li>
+      <li>Each family confirms attendance and any dietary needs.</li>
+    </ul>
+
+    <h3>Thursday</h3>
+    <ul>
+      <li>Build the shared grocery list. Assign who brings what.</li>
+      <li>Confirm life jackets for every kid. The marina has them but bring your own if you have them.</li>
+      <li>Pull together: speakers, board games, cooking spices, cards, towels for the dock.</li>
+    </ul>
+
+    <h3>Friday</h3>
+    <ul>
+      <li>Tank fill all cars.</li>
+      <li>Set the WhatsApp group, pin the live location share.</li>
+      <li>Share this trip page link with everyone.</li>
+      <li>Charge phones, power banks, kid headphones.</li>
+    </ul>
+  </div>
+
+  <div class="panel">
+    <h2>Packing</h2>
+
+    <h3>For the lake</h3>
+    <ul>
+      <li>Swimsuits, two each, kids will live in them.</li>
+      <li>Towels for the dock and pool, separate from bathroom towels.</li>
+      <li>Sunscreen, reef safe. Reapply every 2 hours on the water.</li>
+      <li>Bug spray. Lake bugs at dusk.</li>
+      <li>Hats and sunglasses. Wide brim for the kids if you have them.</li>
+      <li>Water shoes if anyone has tender feet on the dock.</li>
+    </ul>
+
+    <h3>For the cooking</h3>
+    <ul>
+      <li>Spices, ginger garlic paste, coriander, cumin, garam masala. Rural Kroger does not stock these.</li>
+      <li>Pressure cooker if biryani is on the menu.</li>
+      <li>Cutting boards and a sharp knife. Rentals have basics, never enough.</li>
+    </ul>
+
+    <h3>For the kids</h3>
+    <ul>
+      <li>Tablets and headphones for the drive.</li>
+      <li>Pool floats or noodles if you have them, the marina rents them but limited.</li>
+      <li>Pajamas and a hoodie, lake evenings are cool.</li>
+    </ul>
+
+    <h3>For the drive</h3>
+    <ul>
+      <li>Phone car mount, charger cable, dash cam.</li>
+      <li>Snacks, water bottles, paper towels, trash bag.</li>
+      <li>First aid kit, basic meds, motion sickness for any kid that gets queasy.</li>
+    </ul>
+  </div>
+
+  <div class="panel">
+    <h2>Key contacts</h2>
+    <div class="key-fact">
+      <span class="key-fact-label">VRBO listing</span>
+      <span class="key-fact-value"><a href="https://www.vrbo.com/3472842" target="_blank" rel="noopener">Property page</a></span>
+    </div>
+    <div class="key-fact">
+      <span class="key-fact-label">Lake Haven Marina</span>
+      <span class="key-fact-value"><a href="tel:+15407215800">540 721 5800</a></span>
+    </div>
+    <div class="key-fact">
+      <span class="key-fact-label">Bridgewater Marina (backup)</span>
+      <span class="key-fact-value"><a href="tel:+15407211639">540 721 1639</a></span>
+    </div>
+    <div class="key-fact">
+      <span class="key-fact-label">Natural Bridge State Park</span>
+      <span class="key-fact-value"><a href="tel:+15402915121">540 291 5121</a></span>
+    </div>
+    <div class="key-fact">
+      <span class="key-fact-label">Kroger Westlake</span>
+      <span class="key-fact-value"><a href="tel:+15407214475">540 721 4475</a></span>
+    </div>
+    <div class="key-fact">
+      <span class="key-fact-label">Nearest hospital</span>
+      <span class="key-fact-value">Carilion Franklin Memorial, Rocky Mount (30 min)</span>
+    </div>
+    <div class="key-fact">
+      <span class="key-fact-label">Emergency</span>
+      <span class="key-fact-value"><a href="tel:911">911</a></span>
+    </div>
+  </div>
+
+  <div class="panel">
+    <h2>Driving rules of the road</h2>
+    <ul>
+      <li><strong>Caravan order.</strong> Lead car set before departure, slowest car second from front, no one drives faster than the lead.</li>
+      <li><strong>Regroup points.</strong> Buc-ee's, Natural Bridge, Kroger. Wait for stragglers before moving.</li>
+      <li><strong>Communication.</strong> WhatsApp group with live location shared by all drivers.</li>
+      <li><strong>Fuel.</strong> All cars top up at the Buc-ee's stop. Cheapest gas in the region.</li>
+      <li><strong>Slow signal stretches.</strong> Between Lexington and Smith Mountain Lake, expect spotty cell coverage. Download offline maps before leaving.</li>
+    </ul>
+  </div>
+
+  <div class="panel">
+    <h2>Stress test passed</h2>
+    <ul>
+      <li><strong>Memorial Day traffic.</strong> Mitigated. 8 AM Saturday departure, 10:30 AM Monday return both miss the peaks.</li>
+      <li><strong>Heat.</strong> Mid 80s likely. Water, hats, sunscreen built into the day.</li>
+      <li><strong>Single failure point.</strong> Pontoon booking. Two backup marinas listed.</li>
+      <li><strong>Weather.</strong> Rain backup plan is D-Day Memorial or board games.</li>
+      <li><strong>Dietary.</strong> 16 people, mixed eaters. Kitchen first strategy. Group cooking each evening.</li>
+      <li><strong>Caravan drift.</strong> Three regroup points, live location, lead car protocol.</li>
+    </ul>
+  </div>
+
+</section>
+
+</main>
+
+<footer>
+  Lagom · just enough · the right amount
+</footer>
+
+<script>
+  // Tab switching
+  const tabs = document.querySelectorAll('.tab');
+  const sections = document.querySelectorAll('.section');
+  tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      const target = tab.dataset.target;
+      tabs.forEach(t => t.classList.remove('active'));
+      sections.forEach(s => s.classList.remove('active'));
+      tab.classList.add('active');
+      document.getElementById(target).classList.add('active');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  });
+
+  // Countdown to Saturday May 23, 2026, 8:00 AM ET
+  const target = new Date('2026-05-23T08:00:00-04:00').getTime();
+  function tick() {
+    const now = Date.now();
+    const diff = target - now;
+    if (diff <= 0) {
+      document.getElementById('cd-days').textContent = '0';
+      document.getElementById('cd-hours').textContent = '0';
+      document.getElementById('cd-mins').textContent = '0';
+      return;
+    }
+    const d = Math.floor(diff / (1000 * 60 * 60 * 24));
+    const h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+    document.getElementById('cd-days').textContent = d;
+    document.getElementById('cd-hours').textContent = h;
+    document.getElementById('cd-mins').textContent = m;
+  }
+  tick();
+  setInterval(tick, 60000);
+</script>
+
+</body>
+</html>
